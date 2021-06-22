@@ -1,0 +1,31 @@
+﻿<html>
+<head>
+</head>
+<body>
+    <h1>Course List</h1>
+    <div id="app_5">
+        <h4>Course List</h4>
+        <ol>
+            <li v-for="course in courses">
+                <a :href="`CourseDetails/${course.id}`">{{course.courseName}}</a>
+            </li>
+        </ol>
+    </div>
+    <script>
+        var app_5 = new Vue({
+            el: '#app_5',
+            data: {
+                courses: []
+            },
+            mounted() {
+                axios
+                    .get('/Api/CourseApi')
+                    .then(response => {
+                        this.courses = response.data;
+                        console.warn(this.courses);
+                    })
+            },
+        });
+    </script>
+</body>
+</html>

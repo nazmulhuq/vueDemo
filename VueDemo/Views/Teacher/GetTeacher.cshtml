@@ -1,0 +1,31 @@
+﻿<html>
+<head>
+</head>
+<body>
+
+    <span hidden id="teacherId">@(ViewData["teacherId"])</span>
+    <div id="app_5">
+        <ul v-bind:key="teacher.id">
+            <li><b>Teacher Name: </b> {{teacher.teacherName}} </li>
+        </ul>
+    </div>
+    <script>
+        var app_5 = new Vue({
+            el: '#app_5',
+            data: {
+                teacher: undefined
+            },
+            mounted() {
+                var teacherId = document.getElementById("teacherId").innerHTML;
+                console.warn(teacherId);
+                axios
+                    .get('/Api/TeacherApi/' + teacherId)
+                    .then(response => {
+                        this.teacher = response.data;
+                        //console.warn(this.course);
+                    });
+            },
+        });
+    </script>
+</body>
+</html>

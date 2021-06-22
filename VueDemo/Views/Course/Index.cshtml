@@ -1,0 +1,36 @@
+﻿<html>
+    <head></head>
+    <body>
+        <h1>this is index</h1>
+        <div id="app_5">
+            <table border="1">
+                <tr>
+                    <td>Course Name</td>
+                    <td>Course Fee</td>
+                    <td>Teacher Name</td>
+                </tr>
+                <tr v-for="course in courses" v-bind:key="course.id">
+                    <td>{{course.courseName}}</td>
+                    <td>{{course.courseFee}}</td>
+                    <td>{{course.teacher.teacherName}}</td>
+                </tr>
+            </table>
+        </div>
+        <script>
+            var app_5 = new Vue({
+                el: '#app_5',
+                data: {
+                    courses: []
+                },
+                mounted() {
+                    axios
+                        .get('/Api/CourseApi')
+                        .then(response => {
+                            this.courses = response.data;
+                            console.warn(this.courses);
+                        })
+                },
+            });
+        </script>
+    </body>
+</html>

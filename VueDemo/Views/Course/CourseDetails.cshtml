@@ -1,0 +1,41 @@
+﻿<html>
+<head>
+</head>
+<body>
+    
+    <span hidden id="courseId">@(ViewData["courseId"])</span>
+    <div id="app_5">
+        <ul v-bind:key="course.id">
+            <li><b>Course Name: </b> {{course.courseName}} </li>
+            <li><b>Course Fee: </b>${{course.courseFee}} </li>
+            <li>
+                <b>Teacher Name: </b><a :href="`/Teacher/GetTeacher/${course.teacher.id}`">{{course.teacher.teacherName}}</a>
+            </li>
+        </ul>
+        <h4>Student List</h4>
+        <ol>
+            <li v-for="student in course.students">
+                <a :href="`studentDetails/${student.id}`">{{student.studentName}}</a>
+            </li>
+        </ol>
+    </div>
+    <script>
+        var app_5 = new Vue({
+            el: '#app_5',
+            data: {
+                course: undefined
+            },
+            mounted() {
+                var courseId = document.getElementById("courseId").innerHTML;
+                console.warn(courseId);
+                axios
+                    .get('/Api/CourseApi/' + courseId)
+                    .then(response => {
+                        this.course = response.data;
+                        //console.warn(this.course);
+                    });
+            },
+        });
+    </script>
+</body>
+</html>
