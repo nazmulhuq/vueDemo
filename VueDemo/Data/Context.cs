@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VueDemo.Data
 {
-    public class Context : DbContext
+    public class Context : IdentityDbContext
     {
         public Context(DbContextOptions options) : base(options) { } 
 

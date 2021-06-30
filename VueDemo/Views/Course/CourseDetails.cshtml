@@ -1,23 +1,36 @@
-﻿<html>
+﻿@model VueDemo.ViewModels.SubscribeCourseViewModel
+<html>
 <head>
 </head>
 <body>
     
     <span hidden id="courseId">@(ViewData["courseId"])</span>
-    <div id="app_5">
-        <ul v-bind:key="course.id">
-            <li><b>Course Name: </b> {{course.courseName}} </li>
-            <li><b>Course Fee: </b>${{course.courseFee}} </li>
-            <li>
-                <b>Teacher Name: </b><a :href="`/Teacher/GetTeacher/${course.teacher.id}`">{{course.teacher.teacherName}}</a>
-            </li>
-        </ul>
-        <h4>Student List</h4>
-        <ol>
-            <li v-for="student in course.students">
-                <a :href="`studentDetails/${student.id}`">{{student.studentName}}</a>
-            </li>
-        </ol>
+    
+    <div class="row" id="app_5">
+        <div class="col-md-6">
+            <ul v-bind:key="course.id">
+                <li><b>Course Name: </b> {{course.courseName}} </li>
+                <li><b>Course Fee: </b>${{course.courseFee}} </li>
+                <li>
+                    <b>Teacher Name: </b><a :href="`/Teacher/GetTeacher/${course.teacher.id}`">{{course.teacher.teacherName}}</a>
+                </li>
+            </ul>
+            <h4>Student List</h4>
+            <ol>
+                <li v-for="student in course.students">
+                    <a :href="`/student/studentDetails/${student.id}`">{{student.studentName}}</a>
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-6">
+            @*<a class="btn btn-danger" href="/Api/SubscriptionApi/@(ViewData["courseId"])">Subscribe</a>*@
+            <form method="post" asp-action="SubscribeCourse" asp-controller="Course">
+                <input hidden asp-for="CourseId" value="@(ViewData["courseId"])" />
+                <button type="submit" class="btn btn-danger">
+                    Subscribe
+                </button>
+            </form>
+        </div>
     </div>
     <script>
         var app_5 = new Vue({
